@@ -1,0 +1,465 @@
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lenseia — Tienda en línea</title>
+  <meta name="description" content="Tienda en línea de Lenseia: descubre nuestras colecciones, ofertas y envíos a todo el país." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1220;
+      --card: #161a2e;
+      --muted: #9aa3b2;
+      --text: #e7e9ee;
+      --brand: #7c5cff;
+      --brand-2: #38bdf8;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 80% -20%, rgba(124,92,255,.15), transparent 60%), var(--bg);
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
+      background: rgba(15,18,32,.65); border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding:.9rem 0; }
+    .brand { display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.3px; }
+    .brand .logo { width:34px; height:34px; border-radius:10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .nav-actions { display:flex; align-items:center; gap:.6rem; }
+    .btn { border:0; border-radius: 999px; padding:.65rem 1rem; font-weight:600; cursor:pointer; color:#0f1220; background: #fff; transition: transform .15s ease, box-shadow .15s ease; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,92,255,.25); }
+    .btn.ghost { background:transparent; color: var(--text); border:1px solid rgba(255,255,255,.12); }
+    .chip { font-size:.85rem; padding:.35rem .7rem; border-radius:999px; background:rgba(124,92,255,.18); color:#d9d2ff; border:1px solid rgba(124,92,255,.35); }
+
+    /* HERO */
+    .hero { display:grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items:center; padding: 2rem 0 2.2rem; }
+    .hero-card { background: linear-gradient(180deg, rgba(22,26,46,.9), rgba(22,26,46,.5)); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); }
+    .hero h1 { font-size: clamp(1.8rem, 3.6vw, 3rem); line-height:1.1; margin:0 0 .6rem; }
+    .hero p { color: var(--muted); margin:0 0 1.2rem; }
+    .hero .cta { display:flex; gap:.7rem; flex-wrap:wrap; }
+    .hero .img-wrap { position:relative; border-radius:var(--radius); overflow:hidden; box-shadow: var(--shadow); }
+    .hero .img-wrap::after { content:""; position:absolute; inset:0; background: radial-gradient(500px 200px at 80% 0%, rgba(56,189,248,.18), transparent 60%); pointer-events:none; }
+
+    /* BANNERS */
+    .banners { display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin: 1.2rem 0 2rem; }
+    .banner { background: linear-gradient(180deg, rgba(22,26,46,.9), rgba(22,26,46,.5)); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); padding:1rem 1.2rem; display:flex; align-items:center; gap:1rem; }
+    .banner .icon { font-size:1.2rem; }
+    .banner small { color: var(--muted); display:block; }
+
+    /* GRID */
+    .section-head { display:flex; align-items:end; justify-content:space-between; margin: 1.4rem 0 .8rem; }
+    .section-head h2 { margin:0; font-size:1.4rem; }
+    .filters { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .filters select, .filters input[type="search"] { background: #0f1220; color: var(--text); border:1px solid rgba(255,255,255,.12); border-radius: 10px; padding:.55rem .8rem; }
+
+    .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:1rem; }
+    .card { background: linear-gradient(180deg, rgba(22,26,46,.9), rgba(22,26,46,.5)); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+    .card img { aspect-ratio: 4/3; object-fit: cover; }
+    .card .body { padding: .9rem; display:flex; flex-direction:column; gap:.4rem; }
+    .price { font-weight:700; }
+    .old { color: var(--muted); text-decoration: line-through; font-weight:500; margin-left:.3rem; }
+    .tag { font-size:.75rem; padding:.25rem .5rem; border-radius:999px; background:rgba(34,197,94,.15); color:#bbf7d0; border:1px solid rgba(34,197,94,.45); }
+    .actions { display:flex; gap:.5rem; margin-top:.6rem; }
+    .qty { display:flex; align-items:center; gap:.4rem; }
+    .qty button { width:28px; height:28px; border-radius:8px; border:1px solid rgba(255,255,255,.18); background:transparent; color:var(--text); cursor:pointer; }
+
+    /* NEWSLETTER */
+    .newsletter { margin: 2.2rem 0; display:grid; grid-template-columns: 1.2fr .8fr; gap:1rem; }
+    .newsletter > div { background: linear-gradient(180deg, rgba(22,26,46,.9), rgba(22,26,46,.5)); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); padding: 1.2rem 1.4rem; }
+    .newsletter form { display:flex; gap:.5rem; }
+    .newsletter input { flex:1; background:#0f1220; border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:.7rem .9rem; color:var(--text); }
+
+    /* FOOTER */
+    footer { border-top:1px solid rgba(255,255,255,.08); color: var(--muted); padding: 2rem 0; }
+    footer .cols { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:1rem; }
+    footer a { color: var(--muted); }
+
+    /* CART MINI */
+    .cart-fab { position: fixed; right: 18px; bottom: 18px; z-index: 60; }
+    .fab { display:flex; align-items:center; gap:.5rem; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b1020; border:0; border-radius:999px; padding:.9rem 1.1rem; font-weight:800; cursor:pointer; box-shadow: var(--shadow); }
+    .fab .count { background:#0b1020; color:#fff; padding:.2rem .5rem; border-radius:999px; font-size:.8rem; }
+
+    /* CART DRAWER */
+    .drawer { position: fixed; inset:0; background: rgba(0,0,0,.4); display:none; place-items: stretch end; z-index: 70; }
+    .drawer.open { display:grid; }
+    .panel { width:min(420px, 92%); background:#0f1220; height:100%; padding:1rem; border-left:1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); }
+    .panel h3 { margin: .3rem 0 1rem; }
+    .cart-items { display:flex; flex-direction:column; gap:.7rem; max-height: 60vh; overflow:auto; }
+    .cart-item { display:grid; grid-template-columns: 64px 1fr auto; gap:.6rem; align-items:center; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:.4rem; }
+    .cart-item img { width:64px; height:64px; object-fit: cover; border-radius:8px; }
+    .panel .row { display:flex; justify-content:space-between; align-items:center; margin:.6rem 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; }
+      .newsletter { grid-template-columns: 1fr; }
+      footer .cols { grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .banners { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="Inicio Lenseia">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Lenseia</span>
+      </a>
+      <nav class="nav-actions" aria-label="Navegación principal">
+        <a class="btn ghost" href="#catalogo">Catálogo</a>
+        <a class="btn ghost" href="#ofertas">Ofertas</a>
+        <a class="btn ghost" href="#contacto">Contacto</a>
+        <button class="btn" id="loginBtn">Ingresar</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="inicio">
+      <div class="hero-card">
+        <span class="chip">Envíos 24-72h · Pagos seguros</span>
+        <h1>Bienvenido a <span style="background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">Lenseia</span></h1>
+        <p>Tu tienda en línea para descubrir productos con diseño moderno y calidad superior. Compra fácil, rápido y con total seguridad.</p>
+        <div class="cta">
+          <a href="#catalogo" class="btn" aria-label="Ir al catálogo">Ver catálogo</a>
+          <a href="#ofertas" class="btn ghost" aria-label="Ver ofertas">Ofertas de hoy</a>
+        </div>
+      </div>
+      <div class="img-wrap" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Colección destacada Lenseia" />
+      </div>
+    </section>
+
+    <section class="banners" role="region" aria-label="Beneficios de compra">
+      <div class="banner"><div class="icon">🚚</div><div><strong>Envío gratis</strong><small>Pedidos desde $999 MXN</small></div></div>
+      <div class="banner"><div class="icon">🛡️</div><div><strong>Pago protegido</strong><small>Con tarjeta, SPEI y contra entrega</small></div></div>
+      <div class="banner"><div class="icon">↩️</div><div><strong>Devoluciones fáciles</strong><small>30 días sin complicaciones</small></div></div>
+    </section>
+
+    <section id="catalogo" aria-labelledby="catalogo-title">
+      <div class="section-head">
+        <h2 id="catalogo-title">Productos destacados</h2>
+        <div class="filters">
+          <input type="search" id="search" placeholder="Buscar…" aria-label="Buscar productos" />
+          <select id="sort" aria-label="Ordenar por">
+            <option value="popular">Más populares</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="new">Novedades</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid" id="productGrid" role="list">
+        <!-- Tarjeta 1 -->
+        <article class="card" role="listitem" data-title="Auriculares Inalámbricos" data-price="1299" data-new="true">
+          <img src="https://images.unsplash.com/photo-1518444028785-8fbcd101ebb9?q=80&w=1200&auto=format&fit=crop" alt="Auriculares inalámbricos negros" />
+          <div class="body">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:.6rem;">
+              <h3 style="margin:0;font-size:1.05rem">Auriculares Inalámbricos</h3>
+              <span class="tag">Nuevo</span>
+            </div>
+            <div>
+              <span class="price">$1,299</span>
+              <span class="old">$1,599</span>
+            </div>
+            <div class="actions">
+              <div class="qty" aria-label="Seleccionar cantidad">
+                <button aria-label="Disminuir" data-dec>-</button>
+                <span data-q>1</span>
+                <button aria-label="Aumentar" data-inc>+</button>
+              </div>
+              <button class="btn" data-add>Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="card" role="listitem" data-title="Smartwatch Pro" data-price="1899">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop" alt="Reloj inteligente sobre mesa" />
+          <div class="body">
+            <h3 style="margin:0;font-size:1.05rem">Smartwatch Pro</h3>
+            <div>
+              <span class="price">$1,899</span>
+            </div>
+            <div class="actions">
+              <div class="qty" aria-label="Seleccionar cantidad">
+                <button aria-label="Disminuir" data-dec>-</button>
+                <span data-q>1</span>
+                <button aria-label="Aumentar" data-inc>+</button>
+              </div>
+              <button class="btn" data-add>Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <article class="card" role="listitem" data-title="Mochila Urbana" data-price="799">
+          <img src="https://images.unsplash.com/photo-1580674285052-5ea13c3b58dc?q=80&w=1200&auto=format&fit=crop" alt="Mochila urbana sobre fondo oscuro" />
+          <div class="body">
+            <h3 style="margin:0;font-size:1.05rem">Mochila Urbana</h3>
+            <div>
+              <span class="price">$799</span>
+              <span class="old">$999</span>
+            </div>
+            <div class="actions">
+              <div class="qty" aria-label="Seleccionar cantidad">
+                <button aria-label="Disminuir" data-dec>-</button>
+                <span data-q>1</span>
+                <button aria-label="Aumentar" data-inc>+</button>
+              </div>
+              <button class="btn" data-add>Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 4 -->
+        <article class="card" role="listitem" data-title="Teclado Mecánico" data-price="1499">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="Teclado mecánico iluminado" />
+          <div class="body">
+            <h3 style="margin:0;font-size:1.05rem">Teclado Mecánico</h3>
+            <div>
+              <span class="price">$1,499</span>
+            </div>
+            <div class="actions">
+              <div class="qty" aria-label="Seleccionar cantidad">
+                <button aria-label="Disminuir" data-dec>-</button>
+                <span data-q>1</span>
+                <button aria-label="Aumentar" data-inc>+</button>
+              </div>
+              <button class="btn" data-add>Añadir</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="ofertas" class="newsletter" aria-label="Ofertas y boletín">
+      <div>
+        <h3>Ofertas de temporada</h3>
+        <p style="color:var(--muted);margin:.3rem 0 1rem">Aprovecha descuentos en categorías seleccionadas por tiempo limitado.</p>
+        <ul style="margin:.2rem 0 0 1rem; color:var(--muted)">
+          <li>Hasta 35% en audio</li>
+          <li>2×1 en accesorios</li>
+          <li>Envío gratis desde $999 MXN</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Suscríbete al boletín</h3>
+        <p style="color:var(--muted)">Recibe novedades, lanzamientos y cupones exclusivos.</p>
+        <form id="newsletterForm" aria-label="Formulario boletín">
+          <input required type="email" placeholder="Tu correo" aria-label="Correo electrónico" />
+          <button class="btn" type="submit">Suscribirme</button>
+        </form>
+        <p id="newsletterMsg" role="status" style="margin-top:.6rem;color:#bbf7d0;display:none">¡Listo! Te hemos registrado ✨</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="container cols">
+      <div>
+        <div class="brand" style="margin-bottom:.4rem"><span class="logo"></span><strong>Lenseia</strong></div>
+        <p>© <span id="year"></span> Lenseia. Todos los derechos reservados.</p>
+      </div>
+      <div>
+        <strong>Categorías</strong>
+        <ul style="list-style:none;padding-left:0;line-height:2;color:var(--muted)">
+          <li><a href="#catalogo">Audio</a></li>
+          <li><a href="#catalogo">Relojes</a></li>
+          <li><a href="#catalogo">Accesorios</a></li>
+          <li><a href="#catalogo">Ofertas</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Soporte</strong>
+        <ul style="list-style:none;padding-left:0;line-height:2;color:var(--muted)">
+          <li><a href="#">Ayuda</a></li>
+          <li><a href="#">Cambios y devoluciones</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Privacidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Contacto</strong>
+        <ul style="list-style:none;padding-left:0;line-height:2;color:var(--muted)">
+          <li><a href="mailto:hola@lenseia.com">hola@lenseia.com</a></li>
+          <li><a href="tel:+520000000000">+52 000 000 0000</a></li>
+          <li>CDMX, México</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Cart Button -->
+  <div class="cart-fab">
+    <button class="fab" id="openCart" aria-haspopup="dialog" aria-controls="cartDrawer" aria-expanded="false">🛒 Carrito <span class="count" id="cartCount">0</span></button>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+        <h3 id="cartTitle" style="margin:0">Tu carrito</h3>
+        <button class="btn ghost" id="closeCart" aria-label="Cerrar carrito">Cerrar</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="row"><span>Subtotal</span><strong id="cartSubtotal">$0</strong></div>
+      <div class="row"><span>Envío</span><strong id="cartShipping">$0</strong></div>
+      <div class="row" style="border-top:1px solid rgba(255,255,255,.1); padding-top:.6rem"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn" style="width:100%; margin-top:.8rem" id="checkout">Proceder al pago</button>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:.4rem">* Demo: este botón no procesa pagos reales.</p>
+    </div>
+  </div>
+
+  <script>
+    // Utilidades
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // Año dinámico
+    $('#year').textContent = new Date().getFullYear();
+
+    // Newsletter demo
+    $('#newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('#newsletterMsg').style.display = 'block';
+      e.target.reset();
+    });
+
+    // Filtro y orden
+    const grid = $('#productGrid');
+    const search = $('#search');
+    const sort = $('#sort');
+
+    function applyFilters() {
+      const q = search.value.toLowerCase();
+      const items = $$('.card', grid);
+      items.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        card.style.display = title.includes(q) ? '' : 'none';
+      });
+
+      const sorted = items.slice().sort((a,b)=>{
+        const pa = +a.dataset.price, pb = +b.dataset.price;
+        if (sort.value === 'price-asc') return pa - pb;
+        if (sort.value === 'price-desc') return pb - pa;
+        if (sort.value === 'new') return (b.dataset.new?1:0) - (a.dataset.new?1:0);
+        return 0; // popular (default)
+      });
+      sorted.forEach(el => grid.appendChild(el));
+    }
+    search.addEventListener('input', applyFilters);
+    sort.addEventListener('change', applyFilters);
+
+    // Cantidades + Añadir
+    $$('.card').forEach(card => {
+      const qEl = $('[data-q]', card);
+      $('[data-inc]', card).addEventListener('click', ()=>{ qEl.textContent = Math.min(10, (+qEl.textContent||1)+1); });
+      $('[data-dec]', card).addEventListener('click', ()=>{ qEl.textContent = Math.max(1, (+qEl.textContent||1)-1); });
+      $('[data-add]', card).addEventListener('click', ()=> addToCart(card, +qEl.textContent));
+    });
+
+    // Carrito (demo)
+    const drawer = $('#cartDrawer');
+    const openCartBtn = $('#openCart');
+    const closeCartBtn = $('#closeCart');
+    const cartCount = $('#cartCount');
+    const cartItems = $('#cartItems');
+    const cartSubtotal = $('#cartSubtotal');
+    const cartShipping = $('#cartShipping');
+    const cartTotal = $('#cartTotal');
+
+    let cart = [];
+
+    function currency(n){
+      return n.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+    }
+
+    function openDrawer(){ drawer.classList.add('open'); openCartBtn.setAttribute('aria-expanded','true'); }
+    function closeDrawer(){ drawer.classList.remove('open'); openCartBtn.setAttribute('aria-expanded','false'); }
+
+    $('#openCart').addEventListener('click', openDrawer);
+    $('#closeCart').addEventListener('click', closeDrawer);
+    drawer.addEventListener('click', (e)=>{ if(e.target === drawer) closeDrawer(); });
+
+    function addToCart(card, qty){
+      const title = card.dataset.title;
+      const price = +card.dataset.price;
+      const img = card.querySelector('img').src;
+      const existing = cart.find(i => i.title === title);
+      if(existing) existing.qty = Math.min(99, existing.qty + qty);
+      else cart.push({ title, price, qty, img });
+      renderCart();
+    }
+
+    function renderCart(){
+      cartItems.innerHTML = '';
+      let subtotal = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <img src="${item.img}" alt="${item.title}" />
+          <div>
+            <strong>${item.title}</strong>
+            <div style="color:var(--muted)">${currency(item.price)} × ${item.qty}</div>
+          </div>
+          <div style="text-align:right">
+            <div><strong>${currency(item.price * item.qty)}</strong></div>
+            <button class="btn ghost" aria-label="Eliminar">Quitar</button>
+          </div>`;
+        row.querySelector('button').addEventListener('click', ()=>{
+          cart = cart.filter(i => i !== item);
+          renderCart();
+        });
+        cartItems.appendChild(row);
+      });
+      const shipping = subtotal > 0 && subtotal < 999 ? 99 : 0;
+      cartCount.textContent = cart.reduce((a,b)=>a+b.qty,0);
+      cartSubtotal.textContent = currency(subtotal);
+      cartShipping.textContent = currency(shipping);
+      cartTotal.textContent = currency(subtotal + shipping);
+    }
+
+    // Checkout simulado
+    $('#checkout').addEventListener('click', ()=>{
+      if(cart.length === 0){
+        alert('Tu carrito está vacío. Agrega productos para continuar.');
+        return;
+      }
+      alert('Demo: aquí conectarías tu pasarela de pago (Stripe, Mercado Pago, etc.).');
+    });
+
+    // Accesibilidad: foco al abrir
+    const trapFocus = (e)=>{
+      if(!drawer.classList.contains('open')) return;
+      if(e.key === 'Escape') closeDrawer();
+    };
+    document.addEventListener('keydown', trapFocus);
+
+    // Aplicar filtros iniciales
+    applyFilters();
+  </script>
+</body>
+</html>
