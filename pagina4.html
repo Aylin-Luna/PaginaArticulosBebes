@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebé Feliz - Artículos para Bebés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #ff69b4;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav {
+            background-color: #ff85c1;
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 1.5rem;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem;
+            color: #ff69b4;
+        }
+        .product-card p {
+            color: #555;
+            padding: 0 1rem;
+        }
+        .price {
+            font-size: 1.25rem;
+            color: #e91e63;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        .buy-btn {
+            display: inline-block;
+            background-color: #ff69b4;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        .buy-btn:hover {
+            background-color: #ff4d99;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bebé Feliz</h1>
+        <p>Todo lo que tu bebé necesita para crecer sano y feliz.</p>
+    </header>
+
+    <nav>
+        <a href="#novedades">Novedades</a>
+        <a href="#ofertas">Ofertas</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <main class="container">
+        
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/ffc0cb/000000?text=Cochecito" alt="Cochecito de bebé">
+            <h3>Cochecito Plegable</h3>
+            <p>Ligero y fácil de transportar, perfecto para paseos diarios.</p>
+            <div class="price">$150.00</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/add8e6/000000?text=Silla+para+coche" alt="Silla de coche para bebé">
+            <h3>Silla de Coche Segura</h3>
+            <p>Máxima protección y comodidad en cada viaje. Adaptable a diferentes edades.</p>
+            <div class="price">$95.50</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+        
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/90ee90/000000?text=Cuna" alt="Cuna de bebé">
+            <h3>Cuna de Madera Convertible</h3>
+            <p>Diseño elegante y seguro, se convierte en cama para niños pequeños.</p>
+            <div class="price">$220.00</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+        
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/ffb6c1/000000?text=Bañera" alt="Bañera para bebé">
+            <h3>Bañera Ergonómica</h3>
+            <p>Diseñada para la comodidad y seguridad de tu bebé a la hora del baño.</p>
+            <div class="price">$45.00</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/f08080/000000?text=Biberones" alt="Biberones para bebé">
+            <h3>Set de Biberones</h3>
+            <p>Anticólicos y de flujo lento. Incluye varios tamaños y cepillo de limpieza.</p>
+            <div class="price">$30.00</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/400x250/dda0dd/000000?text=Juguetes" alt="Juguetes para bebé">
+            <h3>Set de Juguetes Sensoriales</h3>
+            <p>Estimula el desarrollo de los sentidos con texturas, sonidos y colores.</p>
+            <div class="price">$25.00</div>
+            <a href="#" class="buy-btn">Comprar</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Bebé Feliz. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
